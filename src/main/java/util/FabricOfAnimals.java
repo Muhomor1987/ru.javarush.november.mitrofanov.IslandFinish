@@ -7,6 +7,8 @@ import entities.Entity;
 import entities.Constants;
 import entities.Organisms;
 import lombok.Getter;
+import org.apache.logging.log4j.core.Logger;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,10 +19,15 @@ import java.util.concurrent.locks.Lock;
 
 @Getter
 public class FabricOfAnimals {
+
+
+
     Constants constants;
+
     Island island;
     Statistics statistics;
     Lock lockFabric;
+
 
     private final ConcurrentHashMap<Organisms, ArrayList<Entity>> poolAnimals;
 
@@ -74,7 +81,7 @@ public class FabricOfAnimals {
                         entity.name = entity.getTYPE().name() + statistics.getStatistics().get(TYPE);
                         entity.weight = ThreadLocalRandom.current().nextDouble(constants.getMaxWeight().get(TYPE) / 2, constants.getMaxWeight().get(TYPE));
                         location.getAnimalsIn().add(entity);
-                        System.out.println("Создан новое Животное " + entity);
+
                     }
                     statistics.getStatistics().replace(TYPE, statistics.getStatistics().get(TYPE) + 1);
                     location.getCountAnimalsMapOnLocation().replace(TYPE, location.getCountAnimalsMapOnLocation().get(TYPE) + 1);
